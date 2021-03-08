@@ -55,8 +55,7 @@ echo "<br/><br/><br/>";
 
 echo "Teste Bank.php <br/><br/>";
 $banco = new Bank;
-$banco->number = 3pwd
-83;
+$banco->number = 383;
 $banco->name = "Juno";
 var_dump($banco);
 

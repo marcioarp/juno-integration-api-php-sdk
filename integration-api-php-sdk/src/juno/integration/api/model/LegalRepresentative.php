@@ -1,9 +1,12 @@
 <?php
 namespace src\juno\integration\api\model;
 
-class LegalRepresentative /*extends BaseModel */ {
-    public $name;
-    public $document;
-    public $birthDate;
+class LegalRepresentative {
+    private $name;
+    private $document;
+    private $birthDate;
+    private $motherName;
+    private $type;
+
 }
 ?>

@@ -1,5 +1,6 @@
 <?php 
-namespace src\juno\integration\api\services; 
+namespace src\juno\integration\api\services;
+
 
 class JunoApiConfig {
     public const TOKEN_TIMEOUT = 5000;
@@ -11,14 +12,15 @@ class JunoApiConfig {
     public $idempotencyKey;
     public $Environment;
 
-    /*JunoApiConfig() {
-        $sandbox();
-        UnirestConfig::configure();
-    }
-    function JunoApiConfig::production(){
-        $this->env = new ProductionEnviroment;
-        return $this->env;
-    } */
+//    JunoApiConfig() {
+//        $sandbox();
+//        UnirestConfig::configure();
+//    }
+//
+//    function JunoApiConfig::production(){
+//        $this->env = new ProductionEnviroment;
+//        return $this->env;
+//    }
 
 }
 ?>

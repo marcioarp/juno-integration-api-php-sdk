@@ -35,7 +35,7 @@ abstract class Resource {
             Config::setClientId($args[Config::CLIENT_ID]);
         }
 
-        if (key_exists(Config::CLIENT_SECRET)) {
+        if (key_exists(Config::CLIENT_SECRET, $args)) {
             Config::setClientSecret($args[Config::CLIENT_SECRET]);
         }
 
@@ -59,7 +59,6 @@ abstract class Resource {
     //TODO: Create oauth request
 
 
-
     /**
      * Retrieve all resources.
      *
@@ -67,8 +66,6 @@ abstract class Resource {
      *
      * @return mixed
      * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \Vindi\Exceptions\RateLimitException
-     * @throws \Vindi\Exceptions\RequestExceptiona
      */
     public function all(array $params = [])
     {
@@ -82,8 +79,6 @@ abstract class Resource {
      *
      * @return mixed
      * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \Vindi\Exceptions\RateLimitException
-     * @throws \Vindi\Exceptions\RequestException
      */
     public function create(array $form_params = [])
     {
@@ -102,8 +97,6 @@ abstract class Resource {
      *
      * @return mixed
      * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \Vindi\Exceptions\RateLimitException
-     * @throws \Vindi\Exceptions\RequestException
      */
     public function retrieve($id = null)
     {
@@ -123,8 +116,6 @@ abstract class Resource {
      *
      * @return mixed
      * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \Vindi\Exceptions\RateLimitException
-     * @throws \Vindi\Exceptions\RequestException
      */
     public function update($id = null, array $form_params = [])
     {
@@ -139,8 +130,6 @@ abstract class Resource {
      *
      * @return mixed
      * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \Vindi\Exceptions\RateLimitException
-     * @throws \Vindi\Exceptions\RequestException
      */
     public function delete($id = null, array $form_params = [])
     {
@@ -155,8 +144,6 @@ abstract class Resource {
      *
      * @return mixed
      * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \Vindi\Exceptions\RateLimitException
-     * @throws \Vindi\Exceptions\RequestException
      */
     public function get($id = null, $action = null)
     {
@@ -172,8 +159,6 @@ abstract class Resource {
      *
      * @return mixed
      * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \Vindi\Exceptions\RateLimitException
-     * @throws \Vindi\Exceptions\RequestException
      */
     public function post($id = null, $action = null, array $form_params = [])
     {

@@ -16,7 +16,7 @@ class OauthClient extends Guzzle
                 'Content' => 'application/x-www-form-urlencoded',
                 'X-API-Version' => '2',
                 'X-Resource-Token' => Config::getPrivateToken(),
-                'Authorization' => ['BASIC', '', base64_encode(Config::getClientId() . ':' . Config::getClientSecret())]
+                'Authorization' => 'BASIC ' . base64_encode(Config::getClientId() . ':' . Config::getClientSecret())
             ]
         ], $config);
         parent::__construct($config);

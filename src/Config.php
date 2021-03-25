@@ -8,8 +8,8 @@ class Config
 {
     const AUTH_URL = 'AUTH_URL';
     const RESOURCE_URL = 'JUNO_URL';
-    const PUBLIC_TOKEN = 'ACCESS_TOKEN';
-    const PRIVATE_TOKEN = 'ACCESS_TOKEN';
+    const PUBLIC_TOKEN = 'PUBLIC_TOKEN';
+    const PRIVATE_TOKEN = 'PRIVATE_TOKEN';
     const CLIENT_ID = 'CLIENT_ID';
     const CLIENT_SECRET = 'CLIENT_SECRET';
 
@@ -25,20 +25,11 @@ class Config
     }
 
     /**
-     *
-     * Authentication Process
-     */
-
-    public function Authentication(?array $acessToken):Config {
-
-    }
-
-    /**
      * @param $auth_url
      */
     public static function setAuthUrl($auth_url)
     {
-        if(null == self::$auth_url) {
+        if(null === self::$auth_url) {
             self::$auth_url = $auth_url;
         }
     }
@@ -46,9 +37,9 @@ class Config
     /**
      * @param mixed $resource_url
      */
-    public static function setResourceUrl($resource_url): void
+    public static function setResourceUrl($resource_url)
     {
-        if(null == self::$resource_url) {
+        if(null === self::$resource_url) {
             self::$resource_url = $resource_url;
         }
     }
@@ -58,7 +49,7 @@ class Config
      */
     public static function setPrivateToken($private_token)
     {
-        if(null == self::$private_token) {
+        if(null === self::$private_token) {
             self::$private_token = $private_token;
         }
     }
@@ -68,7 +59,7 @@ class Config
      */
     public static function setPublicToken($public_token)
     {
-        if(null == self::$public_token){
+        if(null === self::$public_token){
             self::$public_token = $public_token;
         }
     }
@@ -78,7 +69,7 @@ class Config
      */
     public static function setClientId($client_id)
     {
-        if(null == self::$client_id){
+        if(null === self::$client_id){
             self::$client_id = $client_id;
         }
     }
@@ -88,7 +79,7 @@ class Config
      */
     public static function setClientSecret($client_secret)
     {
-        if(null == self::$client_secret){
+        if(null === self::$client_secret){
             self::$client_secret = $client_secret;
         }
     }
@@ -98,7 +89,7 @@ class Config
      */
     public static function getAuthUrl()
     {
-        if(null == self::$auth_url) {
+        if(null !== self::$auth_url) {
             return self::$auth_url;
         }
 
@@ -115,7 +106,7 @@ class Config
      */
     public static function getResourceUrl()
     {
-        if(null == self::$resource_url) {
+        if(null !== self::$resource_url) {
             return self::$resource_url;
         }
 
@@ -131,7 +122,7 @@ class Config
      */
     public static function getPrivateToken()
     {
-        if(null == self::$private_token) {
+        if(null !== self::$private_token) {
             return self::$private_token;
         }
 
@@ -143,7 +134,7 @@ class Config
      */
     public static function getPublicToken()
     {
-        if(null == self::$public_token){
+        if(null !== self::$public_token){
             return self::$public_token;
         }
 
@@ -155,7 +146,7 @@ class Config
      */
     public static function getClientId()
     {
-        if(null == self::$client_id){
+        if(null !== self::$client_id){
             return self::$client_id;
         }
         return getenv(static::CLIENT_ID);
@@ -166,7 +157,7 @@ class Config
      */
     public static function getClientSecret()
     {
-        if(null == self::$client_secret){
+        if(null !== self::$client_secret){
             return self::$client_secret;
         }
         return getenv(static::CLIENT_SECRET);

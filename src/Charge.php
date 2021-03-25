@@ -9,7 +9,7 @@ class Charge extends Resource {
         return 'charges';
     }
 
-    public function create(array $form_params = [])
+    public function createCharge(array $form_params = [])
     {
         return $this->create($form_params);
     }

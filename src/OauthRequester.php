@@ -4,10 +4,6 @@ namespace TamoJuno;
 
 use Psr\Http\Message\ResponseInterface;
 use TamoJuno\Http\OauthClient;
-use Vindi\ApiRequester;
-use Vindi\Exceptions\RateLimitException;
-use Vindi\Exceptions\RequestException;
-use Vindi\Exceptions\ValidationException;
 
 class OauthRequester
 {
@@ -38,8 +34,6 @@ class OauthRequester
      *
      * @return mixed
      * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \Vindi\Exceptions\RateLimitException
-     * @throws \Vindi\Exceptions\RequestException
      */
     public function request($method, $endpoint, array $options = [])
     {
@@ -57,8 +51,6 @@ class OauthRequester
      * @param ResponseInterface $response
      *
      * @return object
-     * @throws RateLimitException
-     * @throws \Vindi\Exceptions\RequestException
      */
     public function response(ResponseInterface $response)
     {
@@ -100,7 +92,6 @@ class OauthRequester
      * @param mixed             $data
      *
      * @return $this
-     * @throws \Vindi\Exceptions\RequestException
      */
     private function checkForErrors(ResponseInterface $response, $data)
     {

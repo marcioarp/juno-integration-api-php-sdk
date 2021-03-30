@@ -39,6 +39,10 @@ abstract class Resource {
             Config::setClientSecret($args[Config::CLIENT_SECRET]);
         }
 
+        if (key_exists(Config::ACCESS_TOKEN, $args)) {
+            Config::setAccessToken($args[Config::ACCESS_TOKEN]);
+        }
+
         $this->resource_requester = new ResourceRequester;
     }
 
@@ -56,22 +60,6 @@ abstract class Resource {
         return $endpoint;
     }
 
-    //TODO: Create oauth request
-
-
-    /**
-     * Retrieve all resources.
-     *
-     * @param array $params Pagination and Filter parameters.
-     *
-     * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
-    public function all(array $params = [])
-    {
-        return $this->resource_requester->request('GET', $this->url(), ['query' => $params]);
-    }
-
     /**
      * Create a new resource.
      *
@@ -85,7 +73,27 @@ abstract class Resource {
         return $this->resource_requester->request('POST', $this->url(), ['json' => $form_params]);
     }
 
-    public function retrieveAll()
+    /**
+     * Retrieve all resources.
+     *
+     * @param array $params Pagination and Filter parameters.
+     *
+     * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function allByQuery(array $params = [])
+    {
+        return $this->resource_requester->request('GET', $this->url(), ['query' => $params]);
+    }
+
+    /**
+     * Retrieve all resources with no params required.
+     *
+     *
+     * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function all()
     {
         return $this->resource_requester->request('GET', $this->url());
     }
@@ -103,6 +111,15 @@ abstract class Resource {
         return $this->resource_requester->request('GET', $this->url($id));
     }
 
+    /**
+     * Update a specific resource by using patch.
+     *
+     * @param int   $id          The resource's id.
+     * @param array $form_params The request body.
+     *
+     * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException*
+     */
     public function updateSome(array $form_params = [])
     {
         return $this->resource_requester->request('PATCH', $this->url(), ['json' => $form_params]);
@@ -145,9 +162,23 @@ abstract class Resource {
      * @return mixed
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function get($id = null, $action = null)
+    public function getById($id = null, $action = null)
     {
         return $this->resource_requester->request('GET', $this->url($id, $action));
+    }
+
+    /**
+     * Make a GET request to an additional endpoint for a specific resource.
+     *
+     * @param int    $id                 The resource's id.
+     * @param string $additionalEndpoint Additional endpoint that will be appended to the URL.
+     *
+     * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function get($action = null)
+    {
+        return $this->resource_requester->request('GET', $this->url($action));
     }
 
     /**

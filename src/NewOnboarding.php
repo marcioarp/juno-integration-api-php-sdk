@@ -11,7 +11,7 @@ class NewOnboarding extends Resource {
         return 'onboarding/link-request';
     }
 
-    public function createWhitelabel(array $form_params = [])
+    public function createOnboardingWhiteLabel(array $form_params = [])
     {
         return $this->create($form_params);
     }

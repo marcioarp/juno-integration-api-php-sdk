@@ -3,6 +3,7 @@
 namespace TamoJuno\Http;
 
 use GuzzleHttp\Client as Guzzle;
+use GuzzleHttp\Exception\GuzzleException;
 use TamoJuno\Config;
 
 class Client extends Guzzle
@@ -10,15 +11,49 @@ class Client extends Guzzle
 
     public function __construct(array $config = [])
     {
-        $config = array_merge([
-            'base_uri' => Config::getResourceUrl(),
-            'headers' => [
-                'Content' => 'application/json',
-                'X-API-Version' => '2',
-                'X-Resource-Token' => Config::getPrivateToken(),
-                'Authorization' => 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJndWlsaGVybWV3cnNhbGVzQGdtYWlsLmNvbSIsInNjb3BlIjpbImFsbCJdLCJleHAiOjE2MTY3MTczMjMsImp0aSI6IndUUW92NlpZMU9ZZWVDVnVIRUVMbmx6NWUxVSIsImNsaWVudF9pZCI6Ikpmek5Xczc5TWNkbjZqZncifQ.UHmZcl7DUKopuetiKiwmEvGDLX5NkDb5vf3rdyEXKfSehwHK_5FfKx0uIcPTqNVaMm1LT-zFFgj71cymMJLIoaOcqq2fiw0C8p5qXnB_Av3Mwt-6eKO5RsNkpQfC47f-kGYF7VAsd9IR7cgDRfrNF0q4vDQwLcCP6ZHHLe8zO8VoGb7_x5ugQPncCEqXTMxiynWD_eAl1beOXj6w4uq4r8Bvv3lZ5uWvBpB_ZVhhZewQz-BUQttfeZZhW7QNTrW0xmG_5w5SUMmmkLrzkDwQ70XKqzPWyyVDgvDep-_lXfXWgZnCZkQQ5Uh2cykMbulLxrA6C8pvu8VfxySr1fy_5g'
-            ]
-        ], $config);
+
+        try {
+            $config = array_merge([
+                'base_uri' => Config::getResourceUrl(),
+                'headers' => [
+                    'Content-Type' => 'application/json;charset=utf-8',
+                    'X-Api-Version' => '2',
+                    'X-Resource-Token' => Config::getPrivateToken(),
+                    'Authorization' => 'Bearer ' . Client::generateAuthenticationCurl()
+                ]
+            ], $config);
+        } catch (GuzzleException $e) {
+            print_r($e->getResponse()->getBody()->getContents());
+        }
         parent::__construct($config);
+    }
+
+    public function generateAuthenticationCurl():string
+    {
+
+        $curl = curl_init();
+
+        $credentials = base64_encode(Config::getClientId() . ":" . Config::getClientSecret());
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => 'https://sandbox.boletobancario.com/authorization-server/oauth/token',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => "grant_type=client_credentials",
+            CURLOPT_HTTPHEADER => array(
+                'Authorization: Basic '. $credentials,
+                'Content-Type: application/x-www-form-urlencoded'
+            ),
+        ));
+
+        $response = json_decode(curl_exec($curl), true);
+        return  $response['access_token'];
+        curl_close($curl);
+
     }
 }

@@ -11,18 +11,18 @@ class Data extends Resource
         return 'data';
     }
 
-    public function getBanks($id = null, $action = null)
+    public function getBanks()
     {
-        return $this->get($id, 'banks');
+        return $this->get('banks');
     }
 
-    public function getCompanyTypes($id = null, $action = null)
+    public function getCompanyTypes()
     {
-        return $this->get($id, 'company-types');
+        return $this->get('company-types');
     }
 
-    public function getBusinessAreas($id = null, $action = null)
+    public function getBusinessAreas()
     {
-        return $this->get($id, 'business-areas');
+        return $this->get('business-areas');
     }
 }

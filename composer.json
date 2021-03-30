@@ -5,7 +5,7 @@
     "authors": [
         {
             "name": "guilhermaosales",
-            "email": "guilhermewrsales@gmail.com"
+            "email": "guilherme.sales@juno.com.br"
         }
     ],
     "minimum-stability": "stable",
@@ -14,7 +14,7 @@
         "guzzlehttp/guzzle": "^7.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "8.*",
+        "phpunit/phpunit": "^8",
         "scrutinizer/ocular": "~1.1",
         "squizlabs/php_codesniffer": "3.*"
     },

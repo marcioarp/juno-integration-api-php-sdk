@@ -1,8 +1,8 @@
 <?php
 
-
 namespace TamoJuno;
 
+use GuzzleHttp\Exception\ClientException;
 
 class Config
 {
@@ -12,6 +12,7 @@ class Config
     const PRIVATE_TOKEN = 'PRIVATE_TOKEN';
     const CLIENT_ID = 'CLIENT_ID';
     const CLIENT_SECRET = 'CLIENT_SECRET';
+    const X_IDEMPOTENCY_KEY = 'X_IDEMPOTENCY_KEY';
 
     private static $auth_url;
     private static $resource_url;
@@ -19,6 +20,7 @@ class Config
     private static $public_token;
     private static $client_secret;
     private static $client_id;
+    private static $x_idempotency_key;
 
     public function __construct()
     {
@@ -85,6 +87,16 @@ class Config
     }
 
     /**
+     * @param $x_idempotency_key
+     */
+    public static function setXIdempotencyKey($x_idempotency_key)
+    {
+        if(null === self::$x_idempotency_key){
+            self::$x_idempotency_key = $x_idempotency_key;
+        }
+    }
+
+    /**
      * @return mixed
      */
     public static function getAuthUrl()
@@ -97,7 +109,7 @@ class Config
             return getenv(static::AUTH_URL);
         }
 
-        return 'https://sandbox.boletobancario.com/authorization-server/token';
+        return 'https://sandbox.boletobancario.com/authorization-server/oauth/token/';
 
     }
 
@@ -162,4 +174,16 @@ class Config
         }
         return getenv(static::CLIENT_SECRET);
     }
+
+    /**
+     * @return string
+     */
+    public static function getXIdempotencyKey()
+    {
+        if(null !== self::$x_idempotency_key){
+            return self::$x_idempotency_key;
+        }
+        return getenv(static::X_IDEMPOTENCY_KEY);
+    }
+
 }

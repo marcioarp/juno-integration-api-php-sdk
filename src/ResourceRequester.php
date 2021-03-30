@@ -2,8 +2,10 @@
 
 namespace TamoJuno;
 
+use GuzzleHttp\Exception\ClientException;
 use Psr\Http\Message\ResponseInterface;
 use TamoJuno\Http\Client;
+use TamoJuno\Http\OauthClient;
 
 class ResourceRequester
 {
@@ -24,7 +26,7 @@ class ResourceRequester
     public $lastOptions;
 
     /**
-     * ApiRequester constructor.
+     * ResourceRequester constructor.
      */
     public function __construct()
     {
@@ -38,9 +40,8 @@ class ResourceRequester
      *
      * @return mixed
      * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \Vindi\Exceptions\RateLimitException
-     * @throws \Vindi\Exceptions\RequestException
      */
+
     public function request($method, $endpoint, array $options = [])
     {
         $this->lastOptions = $options;
@@ -58,7 +59,6 @@ class ResourceRequester
      *
      * @return object
      * @throws RateLimitException
-     * @throws \Vindi\Exceptions\RequestException
      */
     public function response(ResponseInterface $response)
     {
@@ -66,59 +66,15 @@ class ResourceRequester
 
         $content = $response->getBody()->getContents();
 
-        $decoded = json_decode($content); // parse as object
+        $decoded = json_decode($content);
         $data = $decoded;
 
-        if (!empty($decoded)) {
+        if (empty($decoded)) {
             reset($decoded);
-            $data = current($decoded); // get first attribute from array, e.g.: subscription, subscriptions, errors.
+            return $data = current($decoded);
         }
-
-        $this->checkRateLimit($response)
-            ->checkForErrors($response, $data);
 
         return $data;
     }
 
-    /**
-     * @param ResponseInterface $response
-     *
-     * @return $this
-     * @throws RateLimitException
-     */
-    private function checkRateLimit(ResponseInterface $response)
-    {
-        if (429 === $response->getStatusCode()) {
-            throw new RateLimitException($response);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param ResponseInterface $response
-     * @param mixed             $data
-     *
-     * @return $this
-     * @throws \Vindi\Exceptions\RequestException
-     */
-    private function checkForErrors(ResponseInterface $response, $data)
-    {
-        $status = $response->getStatusCode();
-
-        $data = (array)$data;
-
-        $statusClass = (int)($status / 100);
-
-        if (($statusClass === 4) || ($statusClass === 5)) {
-            switch ($status) {
-                case 422:
-                    throw new ValidationException($status, $data, $this->lastOptions);
-                default:
-                    throw new RequestException($status, $data, $this->lastOptions);
-            }
-        }
-
-        return $this;
-    }
 }

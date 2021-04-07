@@ -39,10 +39,6 @@ abstract class Resource {
             Config::setClientSecret($args[Config::CLIENT_SECRET]);
         }
 
-        if (key_exists(Config::ACCESS_TOKEN, $args)) {
-            Config::setAccessToken($args[Config::ACCESS_TOKEN]);
-        }
-
         $this->resource_requester = new ResourceRequester;
     }
 

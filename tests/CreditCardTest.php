@@ -1,6 +1,6 @@
 <?php
 
-namespace TamoJuno\Test;
+namespace Test;
 
 use TamoJuno\CreditCard;
 use TamoJuno\ResourceRequester;

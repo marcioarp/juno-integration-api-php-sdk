@@ -28,7 +28,7 @@ class Client extends Guzzle
         parent::__construct($config);
     }
 
-    public function generateAuthenticationCurl():string
+    private function generateAuthenticationCurl():string
     {
 
         $curl = curl_init();

@@ -1,6 +1,6 @@
 <?php
 
-namespace TamoJuno\Test;
+namespace Test;
 
 use stdClass;
 use TamoJuno\ResourceRequester;
@@ -11,6 +11,9 @@ use PHPUnit\Framework\TestCase;
 class ResourceTest extends TestCase
 {
 
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|Resource
+     */
     protected $resource;
 
     public function setUp(): void

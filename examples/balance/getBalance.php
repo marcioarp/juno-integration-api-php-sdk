@@ -12,7 +12,7 @@ $args = array(
 
 try {
     $balanceService = new TamoJuno\Balance($args);
-    $balance = $balanceService->retrieveBalance();
+    $balance = $balanceService->all();
     print_r($balance);
 } catch (GuzzleClientException $e) {
     print_r($e->getResponse()->getBody()->getContents());

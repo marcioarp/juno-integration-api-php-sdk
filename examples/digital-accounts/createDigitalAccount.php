@@ -21,10 +21,10 @@ $fields = ([
     'motherName' => 'Lady Marmelade',
     'monthlyIncomeOrRevenue' => 1000.00,
     'address' => [
-        ...
+        "..."
     ],
     'bankAccount' => [
-        ...
+        "..."
     ],
 ]);
 

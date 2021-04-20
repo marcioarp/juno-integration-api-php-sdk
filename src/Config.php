@@ -109,7 +109,7 @@ class Config
             return getenv(static::AUTH_URL);
         }
 
-        return 'https://sandbox.boletobancario.com/authorization-server/oauth/token/';
+        return 'https://api.juno.com.br/authorization-server/oauth/token/';
 
     }
 
@@ -126,7 +126,7 @@ class Config
             return getenv(static::RESOURCE_URL);
         }
 
-        return 'https://sandbox.boletobancario.com/api-integration/';
+        return 'https://api.juno.com.br/api-integration/';
     }
 
     /**

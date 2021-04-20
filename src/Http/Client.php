@@ -36,7 +36,7 @@ class Client extends Guzzle
         $credentials = base64_encode(Config::getClientId() . ":" . Config::getClientSecret());
 
         curl_setopt_array($curl, array(
-            CURLOPT_URL => 'https://sandbox.boletobancario.com/authorization-server/oauth/token',
+            CURLOPT_URL => 'https://api.juno.com.br/authorization-server/oauth/token',
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,

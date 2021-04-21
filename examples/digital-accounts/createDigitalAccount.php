@@ -10,6 +10,9 @@ $args = array(
     'CLIENT_SECRET' => 'CLIENT_SECRET'
 );
 
+define('IDNA_DEFAULT',0); //para evitar um prob. com o pacote guzzlehttp
+
+
 $fields = ([
     'type' => 'PAYMENT',
     'name' => 'John Doe',

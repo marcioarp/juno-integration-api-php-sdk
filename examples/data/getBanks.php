@@ -10,6 +10,8 @@ $args = array(
     'CLIENT_SECRET' => 'CLIENT_SECRET'
 );
 
+define('IDNA_DEFAULT',0); //para evitar um prob. com o pacote guzzlehttp
+
 try {
     $dataService = new \TamoJuno\Data($args);
     $banks = $dataService->getBanks();

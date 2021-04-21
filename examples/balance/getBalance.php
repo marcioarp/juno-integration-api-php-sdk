@@ -10,6 +10,7 @@ $args = array(
     'CLIENT_SECRET' => 'CLIENT_SECRET'
 );
 
+define('IDNA_DEFAULT',0); //para evitar um prob. com o pacote guzzlehttp
 try {
     $balanceService = new TamoJuno\Balance($args);
     $balance = $balanceService->all();

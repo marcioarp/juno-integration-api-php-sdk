@@ -10,6 +10,8 @@ $args = array(
     'CLIENT_SECRET' => 'CLIENT_SECRET'
 );
 
+define('IDNA_DEFAULT',0); //para evitar um prob. com o pacote guzzlehttp
+
 try {
     $chargeService = new TamoJuno\Charge($args);
     $charge = $chargeService->createCharge([

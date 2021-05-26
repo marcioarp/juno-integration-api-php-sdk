@@ -2,7 +2,8 @@
 
 namespace TamoJuno;
 
-abstract class Resource {
+abstract class Resource
+{
 
     /**
      * @var \TamoJuno\ResourceRequester
@@ -14,7 +15,6 @@ abstract class Resource {
      */
     public function __construct($args = [])
     {
-
         if (key_exists(Config::AUTH_URL, $args)) {
             Config::setAuthUrl($args[Config::AUTH_URL]);
         }
@@ -44,13 +44,14 @@ abstract class Resource {
 
     abstract public function endpoint(): string;
 
-    public function url($id = null, $action = null) {
+    public function url($id = null, $action = null)
+    {
         $endpoint = $this->endpoint();
 
         if (!is_null($id)) {
             $endpoint .= '/' . $id;
         }
-        if (!is_null($action)){
+        if (!is_null($action)) {
             $endpoint .= '/' . $action;
         }
         return $endpoint;
@@ -187,9 +188,9 @@ abstract class Resource {
      * @return mixed
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function post($id = null, $action = null, array $form_params = [])
+    public function post($id = null, $action = null, array $form_params = [], $formType = 'json')
     {
-        return $this->resource_requester->request('POST', $this->url($id, $action), ['json' => $form_params]);
+        return $this->resource_requester->request('POST', $this->url($id, $action), [$formType => $form_params]);
     }
 
     /**
@@ -201,5 +202,4 @@ abstract class Resource {
     {
         return $this->resource_requester->lastResponse;
     }
-
 }

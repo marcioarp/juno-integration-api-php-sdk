@@ -17,7 +17,7 @@ class Client extends Guzzle
                     'Content-Type' => 'application/json;charset=utf-8',
                     'X-Api-Version' => '2',
                     'X-Resource-Token' => Config::getPrivateToken(),
-                    'Authorization' => 'Bearer ' . Client::generateAuthenticationCurl()
+                    'Authorization' => 'Bearer ' . $this->generateAuthenticationCurl(),
                 ]
             ], $config);
         } catch (GuzzleException $e) {
@@ -26,7 +26,7 @@ class Client extends Guzzle
         parent::__construct($config);
     }
 
-    private function generateAuthenticationCurl():string
+    private function generateAuthenticationCurl():?string
     {
         $curl = curl_init();
 
@@ -49,7 +49,7 @@ class Client extends Guzzle
         ));
 
         $response = json_decode(curl_exec($curl), true);
-        return  $response['access_token'];
         curl_close($curl);
+        return $response['access_token'];
     }
 }
